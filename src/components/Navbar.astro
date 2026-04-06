@@ -61,6 +61,14 @@
   aria-hidden="true"
   class="fixed inset-0 bg-[#EEE5DB] z-40 transform translate-x-full opacity-0 flex flex-col justify-center px-8 pb-20"
 >
+  <button
+    onclick="toggleMobileMenu()"
+    aria-label="Cerrar menú"
+    class="absolute top-5 right-5 text-main p-2 rounded-full hover:bg-main/10 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-main"
+  >
+    <i data-lucide="x" class="w-6 h-6" aria-hidden="true"></i>
+  </button>
+
   <nav aria-label="Navegación móvil" class="flex flex-col gap-8 text-center mt-12">
     <a href="#enfoque-horizontal" class="mobile-link font-display text-4xl font-bold text-main hover:text-accent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent rounded-sm">Enfoque</a>
     <a href="#terapia"            class="mobile-link font-display text-4xl font-bold text-main hover:text-accent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent rounded-sm">La Terapia</a>
