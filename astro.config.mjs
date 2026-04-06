@@ -20,6 +20,9 @@ export default defineConfig({
 	devToolbar: { enabled: false },
 	vite: {
 		plugins: [tailwindcss()],
+		optimizeDeps: {
+			exclude: ["astro:zod", "emdash", "@emdash-cms/cloudflare", "@emdash-cms/plugin-forms"],
+		},
 		ssr: {
 			external: [
 				"@tiptap/extension-collaboration",
