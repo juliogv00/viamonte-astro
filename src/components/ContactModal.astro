@@ -5,7 +5,7 @@
   id="contactModal"
   role="dialog"
   aria-modal="true"
-  aria-labelledby="modal-heading-1"
+  aria-labelledby="modal-heading"
   aria-hidden="true"
   class="fixed inset-0 z-50 hidden items-center justify-center p-4"
 >
@@ -13,151 +13,73 @@
   <div class="absolute inset-0 bg-main/50 modal-backdrop" onclick="toggleModal()" aria-hidden="true"></div>
 
   <!-- Panel -->
-  <div class="modal-panel relative z-10 w-full max-w-md bg-[#EEE5DB] rounded-[2rem] shadow-2xl overflow-hidden">
+  <div class="modal-panel relative z-10 w-full max-w-md bg-[#EEE5DB] rounded-[2rem] shadow-2xl overflow-hidden border border-main/10">
 
-    <!-- PASO 1: Selección -->
-    <div id="modal-step-1">
-      <div class="flex justify-between items-start px-8 pt-8 pb-0">
-        <div>
-          <p class="text-[10px] font-bold uppercase tracking-widest text-forest mb-2" aria-hidden="true">Agendar cita</p>
-          <h2 id="modal-heading-1" class="font-display font-bold text-2xl md:text-3xl text-main leading-tight">
-            ¿Cómo podemos<br>ayudarte?
-          </h2>
-        </div>
-        <button
-          onclick="toggleModal()"
-          aria-label="Cerrar"
-          class="text-muted hover:text-main transition-colors p-2 -mt-1 -mr-1 shrink-0 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-main"
-        >
-          <i data-lucide="x" class="w-5 h-5" aria-hidden="true"></i>
-        </button>
-      </div>
-
-      <div class="px-8 pt-7 pb-8 flex flex-col gap-3">
-        <button
-          onclick="goToStep(2, 'primera')"
-          class="modal-option group w-full bg-forest text-[#EEE5DB] px-6 py-4 rounded-full font-medium text-sm hover:bg-forest/90 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg flex items-center justify-between focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
-        >
-          <div class="text-left">
-            <p class="font-bold text-base leading-tight">Es mi primera vez</p>
-            <p class="font-light text-xs opacity-75 mt-0.5">Quiero conocer cómo funciona el proceso</p>
-          </div>
-          <i data-lucide="arrow-right" class="w-4 h-4 shrink-0 ml-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true"></i>
-        </button>
-
-        <button
-          onclick="goToStep(2, 'regreso')"
-          class="modal-option group w-full bg-forest text-[#EEE5DB] px-6 py-4 rounded-full font-medium text-sm hover:bg-forest/90 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg flex items-center justify-between focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
-        >
-          <div class="text-left">
-            <p class="font-bold text-base leading-tight">Ya he tenido alguna sesión</p>
-            <p class="font-light text-xs opacity-75 mt-0.5">Quiero retomar o agendar mi próxima cita</p>
-          </div>
-          <i data-lucide="arrow-right" class="w-4 h-4 shrink-0 ml-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true"></i>
-        </button>
-      </div>
+    <div class="flex justify-between items-center px-6 md:px-8 py-5 border-b border-main/10">
+      <h2 id="modal-heading" class="font-display font-bold text-xl text-main">Elige forma de contacto</h2>
+      <button
+        onclick="toggleModal()"
+        aria-label="Cerrar"
+        class="text-muted hover:text-main transition-colors p-1 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-main"
+      >
+        <i data-lucide="x" class="w-5 h-5" aria-hidden="true"></i>
+      </button>
     </div>
 
-    <!-- PASO 2: Formulario -->
-    <div id="modal-step-2" class="hidden">
-      <div class="flex justify-between items-start px-8 pt-8 pb-0">
-        <div>
-          <button
-            onclick="goToStep(1)"
-            class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-forest mb-2 hover:text-accent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest rounded-sm"
-          >
-            <i data-lucide="arrow-left" class="w-3 h-3" aria-hidden="true"></i>
-            Volver
-          </button>
-          <h2 id="modal-heading-2" class="font-display font-bold text-2xl md:text-3xl text-main leading-tight">
-            <span id="modal-step-2-title">Cuéntame<br>un poco</span>
-          </h2>
-        </div>
+    <div class="p-6 md:p-8" id="contactOptions">
+
+      <!-- WhatsApp -->
+      <a
+        href="https://wa.me/34600000000"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="w-full border border-main/30 text-main px-6 py-4 rounded-2xl font-bold text-base hover:bg-main/5 transition-all duration-300 hover:-translate-y-1 mb-4 text-center flex items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-main"
+      >
+        Contactar por WhatsApp
+      </a>
+
+      <!-- Booking -->
+      <div id="initialButtons">
         <button
-          onclick="toggleModal()"
-          aria-label="Cerrar"
-          class="text-muted hover:text-main transition-colors p-2 -mt-1 -mr-1 shrink-0 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-main"
+          onclick="showBookingForm()"
+          class="w-full bg-forest text-[#EEE5DB] px-6 py-4 rounded-2xl font-bold text-base hover:bg-forest/90 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
         >
-          <i data-lucide="x" class="w-5 h-5" aria-hidden="true"></i>
+          Agendar sesión
+        </button>
+        <button
+          onclick="toggleFirstTime()"
+          class="text-left w-full text-xs text-main/60 hover:text-forest mt-2 underline decoration-dotted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-main rounded-sm"
+        >
+          Es mi primera vez
         </button>
       </div>
 
-      <div class="px-8 pt-6 pb-8 max-h-[70vh] overflow-y-auto">
-        <form class="space-y-4" onsubmit="handleFormSubmit(event)" novalidate>
-          <input type="hidden" id="modal-tipo" name="tipo" value="">
-
-          <div>
-            <label for="modal-nombre" class="block text-xs font-bold text-main mb-1.5 tracking-wide uppercase">
-              Nombre <span class="text-forest" aria-hidden="true">*</span>
-            </label>
-            <input
-              type="text"
-              id="modal-nombre"
-              name="nombre"
-              required
-              autocomplete="given-name"
-              aria-required="true"
-              class="w-full bg-transparent border border-main/25 rounded-xl px-4 py-3 text-main font-light focus:outline-none focus:border-main focus:ring-1 focus:ring-main transition-colors placeholder:text-main/30 text-sm"
-              placeholder="Tu nombre"
-            >
-          </div>
-
-          <div>
-            <label for="modal-email" class="block text-xs font-bold text-main mb-1.5 tracking-wide uppercase">
-              Correo electrónico <span class="text-forest" aria-hidden="true">*</span>
-            </label>
-            <input
-              type="email"
-              id="modal-email"
-              name="email"
-              required
-              autocomplete="email"
-              aria-required="true"
-              class="w-full bg-transparent border border-main/25 rounded-xl px-4 py-3 text-main font-light focus:outline-none focus:border-main focus:ring-1 focus:ring-main transition-colors placeholder:text-main/30 text-sm"
-              placeholder="tu@email.com"
-            >
-          </div>
-
-          <div>
-            <label for="modal-modalidad" class="block text-xs font-bold text-main mb-1.5 tracking-wide uppercase">
-              Modalidad
-            </label>
-            <select
-              id="modal-modalidad"
-              name="modalidad"
-              class="w-full bg-[#EEE5DB] border border-main/25 rounded-xl px-4 py-3 text-main font-light focus:outline-none focus:border-main focus:ring-1 focus:ring-main transition-colors text-sm"
-            >
-              <option value="presencial">Presencial — Madrid Chamberí</option>
-              <option value="online">Online</option>
-              <option value="indiferente">Sin preferencia</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="modal-mensaje" class="block text-xs font-bold text-main mb-1.5 tracking-wide uppercase">
-              Mensaje <span class="font-normal normal-case tracking-normal text-muted">(opcional)</span>
-            </label>
-            <textarea
-              id="modal-mensaje"
-              name="mensaje"
-              rows="3"
-              class="w-full bg-transparent border border-main/25 rounded-xl px-4 py-3 text-main font-light focus:outline-none focus:border-main focus:ring-1 focus:ring-main transition-colors placeholder:text-main/30 resize-none text-sm"
-              placeholder="¿Hay algo que quieras compartir antes?"
-            ></textarea>
-          </div>
-
-          <button
-            type="submit"
-            class="w-full bg-forest text-[#EEE5DB] px-6 py-3.5 rounded-full font-bold text-sm hover:bg-forest/90 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg mt-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
-          >
-            Enviar
-          </button>
-        </form>
+      <!-- Cal.com embed (hidden by default) -->
+      <div id="bookingForm" class="hidden">
+        <div id="calEmbedContainer" class="mt-4"></div>
+        <button
+          type="button"
+          onclick="hideBookingForm()"
+          class="w-full text-muted text-sm hover:text-main transition-colors mt-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-main rounded-sm"
+        >
+          ← Volver
+        </button>
       </div>
-    </div>
 
+      <!-- First time info (hidden by default) -->
+      <div id="firstTimeInfo" class="hidden mt-4 p-4 bg-main/5 rounded-xl">
+        <p class="text-sm text-muted font-light leading-relaxed">Para tu primera sesión agendaremos una cita donde hablaremos sobre qué te trae aquí y cómo trabajo. Es una oportunidad para conocernos sin ningún compromiso.</p>
+      </div>
+
+    </div>
   </div>
 </div>
+
+<script is:inline>
+  window.Cal = window.Cal || function() { (window.Cal.q = window.Cal.q || []).push(arguments); };
+  window.Cal.q = window.Cal.q || [];
+</script>
+<script src="https://cal.com/embed.js" is:inline async></script>
 
 <style>
   #contactModal.flex { display: flex; }

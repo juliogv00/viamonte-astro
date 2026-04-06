@@ -10,58 +10,52 @@
       <h2 class="font-display text-3xl md:text-4xl font-bold text-main tracking-tight">Testimonios</h2>
     </div>
 
-    <!-- Grid: cita izquierda, imagen derecha -->
-    <div class="grid lg:grid-cols-[1fr_340px] gap-10 lg:gap-16 items-stretch">
+    <!-- Live region para screen readers -->
+    <div aria-live="polite" aria-atomic="true" class="sr-only" id="testimonial-live"></div>
 
-      <!-- Columna izquierda: cita -->
-      <div class="relative pl-0 md:pl-6 border-l-0 md:border-l-[3px] md:border-forest/40 flex flex-col justify-between min-h-[280px]">
-        <span class="absolute -top-4 -left-2 md:-top-6 md:-left-8 font-display font-bold text-[6rem] md:text-[8rem] leading-none text-main/8 select-none pointer-events-none" aria-hidden="true">"</span>
+    <!-- Card con Slider -->
+    <div class="relative border border-main/20 rounded-[2rem] p-8 md:p-12 lg:p-16" id="testimonial-slider">
+      <div class="relative z-10">
 
-        <!-- Live region para screen readers -->
-        <div aria-live="polite" aria-atomic="true" class="sr-only" id="testimonial-live"></div>
+        <!-- Author -->
+        <div class="flex justify-center mb-6">
+          <p id="testimonial-author" class="font-body font-bold text-main tracking-widest uppercase text-xs">Carlos M. — Paciente</p>
+        </div>
 
-        <blockquote>
-          <p id="testimonial-text" class="relative font-display text-xl sm:text-2xl md:text-3xl font-medium text-main leading-[1.55] tracking-tight mb-10 md:mb-12">
+        <!-- Quote -->
+        <div class="relative min-h-[140px] flex items-center justify-center mb-8">
+          <p id="testimonial-quote" class="font-display text-2xl sm:text-3xl md:text-4xl font-medium text-main leading-relaxed text-center max-w-3xl">
             "Llegué con ataques de ansiedad casi diarios. Carmen me ayudó a entender que la ansiedad no era el enemigo, sino una señal. El trabajo que hicimos cambió mi perspectiva por completo."
           </p>
-          <footer>
-            <div class="flex items-center justify-between gap-5">
-              <div class="flex items-center gap-5">
-                <div class="flex gap-2" id="testimonial-dots" role="tablist" aria-label="Testimonios">
-                  <button class="testimonial-dot w-6 h-[3px] rounded-full bg-main transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-main" data-index="0" aria-label="Testimonio 1" aria-current="true" role="tab"></button>
-                  <button class="testimonial-dot w-2 h-[3px] rounded-full bg-main/20 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-main" data-index="1" aria-label="Testimonio 2" aria-current="false" role="tab"></button>
-                  <button class="testimonial-dot w-2 h-[3px] rounded-full bg-main/20 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-main" data-index="2" aria-label="Testimonio 3" aria-current="false" role="tab"></button>
-                </div>
-                <cite id="testimonial-author" class="font-body font-bold text-main tracking-widest uppercase text-xs not-italic">— Carlos M.</cite>
-              </div>
-              <div class="flex gap-3">
-                <button
-                  id="prev-testimonial"
-                  aria-label="Testimonio anterior"
-                  class="w-10 h-10 rounded-full border border-main/25 flex items-center justify-center text-main hover:bg-main hover:text-[#EEE5DB] hover:border-main transition-all duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-main"
-                >
-                  <i data-lucide="arrow-left" class="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-0.5" aria-hidden="true"></i>
-                </button>
-                <button
-                  id="next-testimonial"
-                  aria-label="Testimonio siguiente"
-                  class="w-10 h-10 rounded-full border border-main/25 flex items-center justify-center text-main hover:bg-main hover:text-[#EEE5DB] hover:border-main transition-all duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-main"
-                >
-                  <i data-lucide="arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
-          </footer>
-        </blockquote>
-      </div>
-
-      <!-- Columna derecha: imagen -->
-      <div class="h-full min-h-[280px]">
-        <div class="h-full rounded-[1.5rem] overflow-hidden">
-          <img src="/images/hero-dock.jpeg" alt="" aria-hidden="true" class="w-full h-full object-cover object-center">
         </div>
-      </div>
 
+        <!-- Arrows + Progress Bars -->
+        <div class="flex items-center justify-center gap-4">
+          <button
+            id="prev-testimonial"
+            aria-label="Testimonio anterior"
+            class="w-10 h-10 rounded-full border border-main/25 flex items-center justify-center text-main hover:bg-main hover:text-[#EEE5DB] hover:border-main transition-all duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-main"
+          >
+            <i data-lucide="arrow-left" class="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-0.5" aria-hidden="true"></i>
+          </button>
+
+          <div class="flex items-center gap-2" role="tablist" aria-label="Testimonios">
+            <button class="testimonial-bar w-8 h-1 rounded-full bg-main/20 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-main" data-index="0" aria-label="Testimonio 1" role="tab" aria-current="true"></button>
+            <button class="testimonial-bar w-8 h-1 rounded-full bg-main/20 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-main" data-index="1" aria-label="Testimonio 2" role="tab" aria-current="false"></button>
+            <button class="testimonial-bar w-8 h-1 rounded-full bg-main/20 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-main" data-index="2" aria-label="Testimonio 3" role="tab" aria-current="false"></button>
+          </div>
+
+          <button
+            id="next-testimonial"
+            aria-label="Testimonio siguiente"
+            class="w-10 h-10 rounded-full border border-main/25 flex items-center justify-center text-main hover:bg-main hover:text-[#EEE5DB] hover:border-main transition-all duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-main"
+          >
+            <i data-lucide="arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true"></i>
+          </button>
+        </div>
+
+      </div>
     </div>
+
   </div>
 </section>

@@ -142,6 +142,51 @@ const {
       if (!prefersReduced) {
         initAnimations();
         initCursor();
+        initHeroParallax();
+      }
+
+      function initHeroParallax() {
+        const heroSection   = document.getElementById('hero-section');
+        const floatingImages = document.getElementById('floating-images');
+        if (!heroSection || !floatingImages) return;
+
+        const images = floatingImages.querySelectorAll('[data-hero-img]');
+        if (images.length === 0) return;
+
+        const elementsMap = new Map();
+        images.forEach((img) => {
+          const depth = parseFloat(img.dataset.depth) || 1;
+          elementsMap.set(img, { depth, currentPosition: { x: 0, y: 0 } });
+        });
+
+        const sensitivity = 0.5;
+        const easingFactor = 0.08;
+        const mousePosition = { x: 0, y: 0 };
+
+        function updateMousePosition(e) {
+          const rect = heroSection.getBoundingClientRect();
+          if (rect.bottom < 0) return; // hero off screen
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          mousePosition.x = (e.clientX - centerX) / (rect.width / 2);
+          mousePosition.y = (e.clientY - centerY) / (rect.height / 2);
+        }
+
+        window.addEventListener('mousemove', updateMousePosition);
+
+        function animate() {
+          elementsMap.forEach((data, el) => {
+            const strength = data.depth * sensitivity;
+            const targetX = mousePosition.x * strength * 30;
+            const targetY = mousePosition.y * strength * 30;
+            data.currentPosition.x += (targetX - data.currentPosition.x) * easingFactor;
+            data.currentPosition.y += (targetY - data.currentPosition.y) * easingFactor;
+            el.style.transform = `translate3d(${data.currentPosition.x}px, ${data.currentPosition.y}px, 0)`;
+          });
+          requestAnimationFrame(animate);
+        }
+
+        animate();
       }
     </script>
   </body>

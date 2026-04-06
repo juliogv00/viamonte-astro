@@ -5,16 +5,19 @@ import { EASE, DUR } from './constants.js';
 // ── Testimonials data ──────────────────────────────────────
 const testimonials = [
   {
-    text: '"Llegué a consulta con ataques de ansiedad casi diarios. Carmen me ayudó a entender que la ansiedad no era el enemigo, sino una alarma. El trabajo que hicimos me cambió la perspectiva por completo."',
-    author: '— Carlos M.',
+    quote: '"Llegué con ataques de ansiedad casi diarios. Carmen me ayudó a entender que la ansiedad no era el enemigo, sino una señal. El trabajo que hicimos cambió mi perspectiva por completo."',
+    name: 'Carlos M.',
+    role: 'Paciente',
   },
   {
-    text: '"Llevaba años repitiendo los mismos patrones en mis relaciones. Con Carmen entendí de dónde venían y, por primera vez, pude hacer algo diferente. Ha sido un proceso transformador."',
-    author: '— Laura P.',
+    quote: '"Llevaba años repitiendo los mismos patrones en mis relaciones. Con Carmen entendí de dónde venían y, por primera vez, pude hacer algo diferente. Ha sido un proceso transformador."',
+    name: 'Laura R.',
+    role: 'Paciente',
   },
   {
-    text: '"La primera sesión gratuita me dio la confianza que necesitaba para dar el paso. Carmen crea un espacio donde te sientes completamente seguro para hablar de lo que sea."',
-    author: '— Andrés R.',
+    quote: '"La primera sesión me dio la confianza que necesitaba para dar el paso. Carmen crea un espacio donde te sientes completamente seguro para hablar de lo que sea."',
+    name: 'Miguel T.',
+    role: 'Paciente',
   },
 ];
 
@@ -49,7 +52,6 @@ function toggleModal() {
   const isOpen = modal.classList.contains('is-open');
 
   if (!isOpen) {
-    // Remember what triggered the modal so we can restore focus on close
     modalTrigger = document.activeElement;
 
     modal.classList.remove('hidden');
@@ -60,7 +62,6 @@ function toggleModal() {
       requestAnimationFrame(() => {
         modal.classList.add('is-open');
         modal.removeAttribute('aria-hidden');
-        // Move focus to the close button inside the visible step
         const firstFocusable = modal.querySelector('button, [href], input, select, textarea');
         firstFocusable?.focus();
         removeTrap = trapFocus(modal);
@@ -74,13 +75,52 @@ function toggleModal() {
       modal.classList.remove('flex');
       modal.classList.add('hidden');
       document.body.style.overflow = '';
-      goToStep(1);
+      resetModalState();
       if (removeTrap) { removeTrap(); removeTrap = null; }
-      // Restore focus
       modalTrigger?.focus();
       modalTrigger = null;
     }, 300);
   }
+}
+
+function resetModalState() {
+  const bookingForm    = document.getElementById('bookingForm');
+  const firstTimeInfo  = document.getElementById('firstTimeInfo');
+  const initialButtons = document.getElementById('initialButtons');
+  if (bookingForm)    bookingForm.classList.add('hidden');
+  if (firstTimeInfo)  firstTimeInfo.classList.add('hidden');
+  if (initialButtons) initialButtons.classList.remove('hidden');
+}
+
+function showBookingForm() {
+  const initialButtons = document.getElementById('initialButtons');
+  const firstTimeInfo  = document.getElementById('firstTimeInfo');
+  const bookingForm    = document.getElementById('bookingForm');
+  if (initialButtons) initialButtons.classList.add('hidden');
+  if (firstTimeInfo)  firstTimeInfo.classList.add('hidden');
+  if (bookingForm)    bookingForm.classList.remove('hidden');
+
+  setTimeout(() => {
+    if (window.Cal) {
+      window.Cal('init', { origin: 'https://cal.com' });
+      window.Cal('inline', {
+        elementOrSelector: '#calEmbedContainer',
+        calLink: 'julio-garcia-uv80qp',
+      });
+    }
+  }, 300);
+}
+
+function hideBookingForm() {
+  const bookingForm    = document.getElementById('bookingForm');
+  const initialButtons = document.getElementById('initialButtons');
+  if (bookingForm)    bookingForm.classList.add('hidden');
+  if (initialButtons) initialButtons.classList.remove('hidden');
+}
+
+function toggleFirstTime() {
+  const info = document.getElementById('firstTimeInfo');
+  if (info) info.classList.toggle('hidden');
 }
 
 // Close on Escape
@@ -89,49 +129,16 @@ document.addEventListener('keydown', (e) => {
     const modal = document.getElementById('contactModal');
     if (modal?.classList.contains('is-open')) toggleModal();
 
-    const mobileMenu = document.getElementById('mobile-menu');
     if (isMobileMenuOpen) toggleMobileMenu();
   }
 });
-
-// ── Modal steps ────────────────────────────────────────────
-let currentTipo = '';
-
-function goToStep(step, tipo) {
-  const step1  = document.getElementById('modal-step-1');
-  const step2  = document.getElementById('modal-step-2');
-  const title  = document.getElementById('modal-step-2-title');
-  const tipoInput = document.getElementById('modal-tipo');
-
-  if (step === 1) {
-    step2?.classList.add('hidden');
-    step1?.classList.remove('hidden');
-    // Update dialog label to reflect current step
-    document.getElementById('contactModal')?.setAttribute('aria-labelledby', 'modal-heading-1');
-    step1?.querySelector('button, [href], input')?.focus();
-  } else {
-    currentTipo = tipo || currentTipo;
-    if (tipoInput) tipoInput.value = currentTipo;
-    if (title) {
-      title.innerHTML = currentTipo === 'primera'
-        ? 'Cuéntame<br>un poco'
-        : 'Bienvenida<br>de nuevo';
-    }
-    step1?.classList.add('hidden');
-    step2?.classList.remove('hidden');
-    document.getElementById('contactModal')?.setAttribute('aria-labelledby', 'modal-heading-2');
-    // @ts-ignore
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-    step2?.querySelector('button, [href], input')?.focus();
-  }
-}
 
 // ── Menú Móvil ─────────────────────────────────────────────
 let isMobileMenuOpen = false;
 
 function toggleMobileMenu() {
-  const btn      = document.getElementById('mobile-menu-btn');
-  const menu     = document.getElementById('mobile-menu');
+  const btn  = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
   if (!btn || !menu) return;
 
   isMobileMenuOpen = !isMobileMenuOpen;
@@ -151,7 +158,6 @@ function toggleMobileMenu() {
       { opacity: 0, y: 20 },
       { opacity: 1, y: 0, duration: 0.4, ease: EASE.out, stagger: 0.06, delay: 0.15 }
     );
-    // Focus first link
     setTimeout(() => menu.querySelector('a')?.focus(), 200);
   } else {
     menu.classList.add('translate-x-full', 'opacity-0');
@@ -198,63 +204,123 @@ function initScrollReveal() {
 }
 
 // ── Testimonials ───────────────────────────────────────────
-function updateDots(index) {
-  document.querySelectorAll('.testimonial-dot').forEach((dot, i) => {
+let currentTestimonial = 0;
+let autorotate = true;
+let autorotateInterval = null;
+let progressInterval = null;
+const AUTOROTATE_TIME = 5000;
+
+function updateTestimonialBars(index) {
+  document.querySelectorAll('.testimonial-bar').forEach((bar, i) => {
     const isActive = i === index;
-    dot.classList.toggle('w-6', isActive);
-    dot.classList.toggle('bg-main', isActive);
-    dot.classList.toggle('w-2', !isActive);
-    dot.classList.toggle('bg-main/20', !isActive);
-    dot.setAttribute('aria-current', isActive ? 'true' : 'false');
+    bar.classList.toggle('bg-forest', isActive);
+    bar.classList.toggle('bg-main/20', !isActive);
+    bar.style.width = '32px';
+    bar.setAttribute('aria-current', isActive ? 'true' : 'false');
   });
 }
 
-function showTestimonial(index) {
-  const textEl   = document.getElementById('testimonial-text');
-  const authorEl = document.getElementById('testimonial-author');
-  if (!textEl || !authorEl) return;
+function startProgressAnimation() {
+  if (progressInterval) clearInterval(progressInterval);
 
-  // Unified animation: opacity + y — no blur
-  const tl = gsap.timeline();
-  tl.to([textEl, authorEl], {
-    opacity: 0, y: -8,
-    duration: 0.22, ease: 'power2.in',
+  document.querySelectorAll('.testimonial-bar').forEach((bar) => {
+    bar.style.width = '32px';
   });
-  tl.call(() => {
-    textEl.textContent   = testimonials[index].text;
-    authorEl.textContent = testimonials[index].author;
-    updateDots(index);
-    // Announce to screen readers
-    const live = document.getElementById('testimonial-live');
-    if (live) live.textContent = `${testimonials[index].text} ${testimonials[index].author}`;
-  });
-  tl.fromTo(
-    [textEl, authorEl],
-    { opacity: 0, y: 10 },
-    { opacity: 1, y: 0, duration: 0.38, ease: 'power3.out', stagger: 0.05 }
-  );
+
+  const activeBar = document.querySelector(`.testimonial-bar[data-index="${currentTestimonial}"]`);
+  if (activeBar) {
+    activeBar.classList.remove('bg-main/20');
+    activeBar.classList.add('bg-forest');
+
+    let width = 32;
+    const step = 32 / (AUTOROTATE_TIME / 50);
+    progressInterval = setInterval(() => {
+      width += step;
+      if (width >= 64) { width = 64; clearInterval(progressInterval); }
+      activeBar.style.width = `${width}px`;
+    }, 50);
+  }
+}
+
+function showTestimonial(index, animate = true) {
+  const quoteEl  = document.getElementById('testimonial-quote');
+  const authorEl = document.getElementById('testimonial-author');
+  if (!quoteEl) return;
+
+  currentTestimonial = index;
+  const t = testimonials[index];
+
+  if (animate) {
+    const tl = gsap.timeline();
+    tl.to([quoteEl, authorEl].filter(Boolean), {
+      opacity: 0, y: -8,
+      duration: 0.22, ease: 'power2.in',
+    });
+    tl.call(() => {
+      quoteEl.textContent = t.quote;
+      if (authorEl) authorEl.textContent = `${t.name} — ${t.role}`;
+      updateTestimonialBars(index);
+      startProgressAnimation();
+      const live = document.getElementById('testimonial-live');
+      if (live) live.textContent = `${t.quote} ${t.name}`;
+    });
+    tl.fromTo(
+      [quoteEl, authorEl].filter(Boolean),
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.38, ease: 'power3.out', stagger: 0.05 }
+    );
+  } else {
+    quoteEl.textContent = t.quote;
+    if (authorEl) authorEl.textContent = `${t.name} — ${t.role}`;
+    updateTestimonialBars(index);
+    startProgressAnimation();
+  }
+}
+
+function startAutorotate() {
+  if (autorotateInterval) clearInterval(autorotateInterval);
+  startProgressAnimation();
+  autorotateInterval = setInterval(() => {
+    if (autorotate) {
+      const next = (currentTestimonial + 1) % testimonials.length;
+      showTestimonial(next);
+    }
+  }, AUTOROTATE_TIME);
+}
+
+function stopAutorotate() {
+  autorotate = false;
+  if (autorotateInterval) { clearInterval(autorotateInterval); autorotateInterval = null; }
+  if (progressInterval)   { clearInterval(progressInterval);   progressInterval   = null; }
 }
 
 function initTestimonials() {
-  let current = 0;
+  const slider = document.getElementById('testimonial-slider');
+  if (!slider) return;
+
+  showTestimonial(0, false);
+  startAutorotate();
 
   document.getElementById('prev-testimonial')?.addEventListener('click', () => {
-    current = (current - 1 + testimonials.length) % testimonials.length;
-    showTestimonial(current);
+    stopAutorotate();
+    const prev = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+    showTestimonial(prev);
+    setTimeout(() => { autorotate = true; startAutorotate(); }, 3000);
   });
 
   document.getElementById('next-testimonial')?.addEventListener('click', () => {
-    current = (current + 1) % testimonials.length;
-    showTestimonial(current);
+    stopAutorotate();
+    const next = (currentTestimonial + 1) % testimonials.length;
+    showTestimonial(next);
+    setTimeout(() => { autorotate = true; startAutorotate(); }, 3000);
   });
 
-  document.querySelectorAll('.testimonial-dot').forEach((dot) => {
-    dot.addEventListener('click', () => {
-      const idx = parseInt(dot.dataset.index, 10);
-      if (!isNaN(idx) && idx !== current) {
-        current = idx;
-        showTestimonial(current);
-      }
+  document.querySelectorAll('.testimonial-bar').forEach((bar) => {
+    bar.addEventListener('click', () => {
+      stopAutorotate();
+      const idx = parseInt(bar.dataset.index, 10);
+      if (!isNaN(idx) && idx !== currentTestimonial) showTestimonial(idx);
+      setTimeout(() => { autorotate = true; startAutorotate(); }, 3000);
     });
   });
 }
@@ -271,12 +337,6 @@ function initMobileMenu() {
   });
 }
 
-// ── Form submit ────────────────────────────────────────────
-function handleFormSubmit(event) {
-  event.preventDefault();
-  toggleModal();
-}
-
 // ── Public API ─────────────────────────────────────────────
 export { initNavbar };
 
@@ -289,5 +349,6 @@ export function initUI() {
 
 window.toggleModal      = toggleModal;
 window.toggleMobileMenu = toggleMobileMenu;
-window.handleFormSubmit = handleFormSubmit;
-window.goToStep         = goToStep;
+window.showBookingForm  = showBookingForm;
+window.hideBookingForm  = hideBookingForm;
+window.toggleFirstTime  = toggleFirstTime;

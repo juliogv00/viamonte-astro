@@ -339,36 +339,16 @@ function setupTestimonios() {
 
   const trigger = { trigger: section, start: 'top 80%', toggleActions: 'play none none none' };
 
-  // Cabecera: etiqueta + título
-  gsap.fromTo(section.querySelectorAll('h3, span.font-bold'),
+  gsap.fromTo(section.querySelectorAll('h2, span.font-bold'),
     { opacity: 0, y: 20 },
     { opacity: 1, y: 0, duration: DUR.normal, ease: EASE.out, scrollTrigger: trigger }
   );
 
-  // Texto de la cita
-  const quoteText = section.querySelector('#testimonial-text');
-  if (quoteText) {
-    gsap.fromTo(quoteText,
-      { opacity: 0, y: 25 },
-      { opacity: 1, y: 0, duration: DUR.slow, ease: EASE.out, delay: 0.15, scrollTrigger: trigger }
-    );
-  }
-
-  // Imagen derecha
-  const img = section.querySelector('.h-full .rounded-\\[1\\.5rem\\]');
-  if (img) {
-    gsap.fromTo(img,
-      { opacity: 0, y: 30, scale: 0.97 },
-      { opacity: 1, y: 0, scale: 1, duration: DUR.slow, ease: EASE.out, delay: 0.1, scrollTrigger: trigger }
-    );
-  }
-
-  // Autor + dots + flechas
-  const controls = section.querySelector('.flex.items-center.justify-between');
-  if (controls) {
-    gsap.fromTo(controls,
-      { opacity: 0, y: 15 },
-      { opacity: 1, y: 0, duration: DUR.normal, ease: EASE.out, delay: 0.3, scrollTrigger: trigger }
+  const card = section.querySelector('#testimonial-slider');
+  if (card) {
+    gsap.fromTo(card,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: DUR.slow, ease: EASE.out, delay: 0.1, scrollTrigger: trigger }
     );
   }
 }
