@@ -8,13 +8,13 @@
 			"binding": "DB",
 			"database_name": "viamonte-psicologia",
 			// Run `wrangler d1 create my-emdash-site` and paste the real ID here for deploy
-			"database_id": "local",
+			"database_id": "c7419735-89be-496a-9047-a2b7a08e1ad1",
 		},
 	],
 	"r2_buckets": [
 		{
 			"binding": "MEDIA",
-			"bucket_name": "my-emdash-media",
+			"bucket_name": "viamonte-media",
 		},
 	],
 }
