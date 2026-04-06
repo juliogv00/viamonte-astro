@@ -1,0 +1,76 @@
+---
+---
+
+<!-- Top Bar -->
+<div role="banner" class="bg-main text-[#EEE5DB] text-center py-2 px-4 text-[9px] sm:text-[10px] md:text-xs font-medium tracking-widest uppercase whitespace-nowrap overflow-hidden text-ellipsis">
+  Consulta presencial en Madrid Chamberí · Sesiones online
+</div>
+
+<!-- Navegación -->
+<header class="sticky top-0 z-40 bg-[#EEE5DB]/90 backdrop-blur-md border-b border-main/10 transition-all duration-300" id="navbar">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 py-4 md:py-5 flex justify-between items-center">
+    <a href="/" class="flex items-center gap-2.5 z-50 shrink-0" aria-label="Carmen Viamonte — Ir a la página de inicio">
+      <img src="/references/logo%20CV.svg" alt="Carmen Viamonte" class="h-12 md:h-14 w-auto">
+    </a>
+
+    <nav aria-label="Navegación principal" class="hidden md:flex gap-10 items-center font-medium text-main text-sm">
+      <a href="#enfoque-horizontal" class="hover:text-accent transition-colors relative group py-1">
+        Enfoque
+        <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+      </a>
+      <a href="#terapia" class="hover:text-accent transition-colors relative group py-1">
+        La Terapia
+        <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+      </a>
+      <a href="#sobre-mi" class="hover:text-accent transition-colors relative group py-1">
+        Sobre Mí
+        <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+      </a>
+      <a href="/blog" class="hover:text-accent transition-colors relative group py-1">
+        Blog
+        <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+      </a>
+    </nav>
+
+    <button
+      data-magnetic
+      onclick="toggleModal()"
+      class="hidden md:inline-flex bg-forest text-[#EEE5DB] px-6 py-2.5 rounded-full font-medium text-sm hover:bg-forest/90 transition-all duration-300 hover:scale-105 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
+    >
+      Agendar cita
+    </button>
+
+    <button
+      id="mobile-menu-btn"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+      aria-label="Abrir menú"
+      class="md:hidden text-main p-2 -mr-2 z-50 relative focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-main rounded-md"
+    >
+      <i data-lucide="menu" class="w-6 h-6" aria-hidden="true"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Menú Móvil -->
+<div
+  id="mobile-menu"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menú de navegación"
+  aria-hidden="true"
+  class="fixed inset-0 bg-[#EEE5DB] z-40 transform translate-x-full opacity-0 flex flex-col justify-center px-8 pb-20"
+>
+  <nav aria-label="Navegación móvil" class="flex flex-col gap-8 text-center mt-12">
+    <a href="#enfoque-horizontal" class="mobile-link font-display text-4xl font-bold text-main hover:text-accent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent rounded-sm">Enfoque</a>
+    <a href="#terapia"            class="mobile-link font-display text-4xl font-bold text-main hover:text-accent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent rounded-sm">La Terapia</a>
+    <a href="#sobre-mi"           class="mobile-link font-display text-4xl font-bold text-main hover:text-accent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent rounded-sm">Sobre Mí</a>
+    <a href="/blog"               class="mobile-link font-display text-4xl font-bold text-main hover:text-accent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent rounded-sm">Blog</a>
+    <button
+      onclick="toggleModal(); toggleMobileMenu();"
+      class="mt-8 bg-forest text-[#EEE5DB] px-8 py-4 rounded-full font-bold text-lg hover:bg-forest/90 shadow-soft self-center w-full max-w-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
+    >
+      Agendar cita
+    </button>
+  </nav>
+</div>
