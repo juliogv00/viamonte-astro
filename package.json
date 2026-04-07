@@ -12,8 +12,7 @@
 	"dependencies": {
 		"@astrojs/cloudflare": "^13.1.7",
 		"@astrojs/react": "^5.0.2",
-		"@astrojs/tailwind": "^6.0.2",
-		"@emdash-cms/cloudflare": "^0.1.0",
+"@emdash-cms/cloudflare": "^0.1.0",
 		"@emdash-cms/plugin-forms": "^0.1.0",
 		"@tailwindcss/vite": "^4.2.2",
 		"@tiptap/extension-collaboration": "^3.22.2",
