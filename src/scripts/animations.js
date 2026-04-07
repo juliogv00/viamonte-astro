@@ -114,8 +114,7 @@ function setupSVGDrawing() {
 // ── Quote ─────────────────────────────────────────────────────
 function setupQuote() {
   const section = document.querySelector('[data-section="quote"]');
-  const quoteEl = section?.querySelector('[data-split-lines]');
-  if (!quoteEl) return;
+  if (!section) return;
 
   // Parallax en la imagen de fondo — se mueve más lento que el scroll
   const bgImg = section.querySelector('img');
@@ -126,31 +125,26 @@ function setupQuote() {
         scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 1.2 }
       }
     );
+
+    // Leve zoom-out de la imagen al entrar en viewport
+    gsap.fromTo(bgImg,
+      { scale: 1.08 },
+      { scale: 1, duration: 1.6, ease: EASE.inOut,
+        scrollTrigger: { trigger: section, start: 'top 85%', toggleActions: 'play none none none' }
+      }
+    );
   }
 
-  // Leve zoom-out de la imagen al entrar en viewport
-  gsap.fromTo(bgImg,
-    { scale: 1.08 },
-    { scale: 1, duration: 1.6, ease: EASE.inOut,
-      scrollTrigger: { trigger: section, start: 'top 85%', toggleActions: 'play none none none' }
-    }
-  );
-
-  // Reveal de líneas del texto
-  const split = new SplitType(quoteEl, { types: 'lines' });
-  quoteEl.style.visibility = 'visible';
-
-  split.lines.forEach((line) => {
-    const wrapper = document.createElement('div');
-    wrapper.style.cssText = 'overflow:hidden; display:block;';
-    line.parentNode.insertBefore(wrapper, line);
-    wrapper.appendChild(line);
-  });
-
-  gsap.fromTo(split.lines, { y: '105%' }, {
-    y: '0%', duration: DUR.slow, ease: EASE.out, stagger: STAGGER.normal,
-    scrollTrigger: { trigger: section, start: 'top 75%', toggleActions: 'play none none none' },
-  });
+  // Fade-up del texto
+  const quoteEl = section.querySelector('[data-fade-up]');
+  if (quoteEl) {
+    gsap.fromTo(quoteEl,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: DUR.slow, ease: EASE.out,
+        scrollTrigger: { trigger: section, start: 'top 75%', toggleActions: 'play none none none' }
+      }
+    );
+  }
 }
 
 // ── Horizontal Scroll — GSAP pin replaces h-[600vh] ──────────
