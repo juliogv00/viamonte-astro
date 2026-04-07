@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "emdash dev",
-		"build": "astro build",
+		"build": "astro build && node -e \"import('fs').then(fs=>{try{fs.rmSync('.wrangler/deploy',{recursive:true})}catch(e){}})\"",
 		"preview": "wrangler pages dev dist",
 		"typecheck": "astro check"
 	},
