@@ -1,6 +1,11 @@
 ---
+import { getEmDashCollection } from "emdash";
+
+const { entries: posts } = await getEmDashCollection("posts");
+const hasPosts = posts.length > 0;
 ---
 
+{hasPosts && (
 <section id="blog" data-section="blog" class="py-16 md:py-24 px-6 lg:px-12">
   <div class="max-w-7xl mx-auto">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-12 gap-4 md:gap-6">
@@ -55,3 +60,4 @@
     </div>
   </div>
 </section>
+)}

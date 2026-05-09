@@ -1,4 +1,8 @@
 ---
+import { getEmDashCollection } from "emdash";
+
+const { entries: posts } = await getEmDashCollection("posts");
+const hasPosts = posts.length > 0;
 ---
 
 <!-- Top Bar -->
@@ -26,10 +30,12 @@
         Sobre Mí
         <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
       </a>
+      {hasPosts && (
       <a href="/blog" class="hover:text-accent transition-colors relative group py-1">
         Blog
         <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
       </a>
+      )}
     </nav>
 
     <button
@@ -73,7 +79,9 @@
     <a href="#enfoque-horizontal" class="mobile-link font-display text-4xl font-bold text-main hover:text-accent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent rounded-sm">Enfoque</a>
     <a href="#terapia"            class="mobile-link font-display text-4xl font-bold text-main hover:text-accent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent rounded-sm">La Terapia</a>
     <a href="#sobre-mi"           class="mobile-link font-display text-4xl font-bold text-main hover:text-accent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent rounded-sm">Sobre Mí</a>
+    {hasPosts && (
     <a href="/blog"               class="mobile-link font-display text-4xl font-bold text-main hover:text-accent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent rounded-sm">Blog</a>
+    )}
     <button
       onclick="toggleModal(); toggleMobileMenu();"
       class="mt-8 bg-forest text-[#EEE5DB] px-8 py-4 rounded-full font-bold text-lg hover:bg-forest/90 shadow-soft self-center w-full max-w-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
